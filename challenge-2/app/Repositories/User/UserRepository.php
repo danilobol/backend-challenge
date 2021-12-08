@@ -11,10 +11,11 @@ use App\Repositories\Contracts\IUserRepository;
  */
 class UserRepository implements IUserRepository
 {
-    public function createNewUser(string $msisdn, string $name, string $password){
+    public function createNewUser(string $msisdn, string $name, string $password, string $access_level = 'free'){
         return User::create([
             'msisdn'     => $msisdn,
             'name'     => $name,
+            'access_level'     => $access_level,
             'password'  => bcrypt($password)
         ]);
     }

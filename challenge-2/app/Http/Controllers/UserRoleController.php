@@ -29,7 +29,7 @@ class UserRoleController extends Controller
      *     required=true,
      *     @OA\JsonContent(
      *         type="object",
-     *         @OA\Property(property="user_id", type="integer"),
+     *         @OA\Property(property="user_id", type="string"),
      *         @OA\Property(property="role_id", type="integer"),
      *      )
      *   ),
@@ -68,7 +68,7 @@ class UserRoleController extends Controller
      *     required=true,
      *     @OA\JsonContent(
      *         type="object",
-     *         @OA\Property(property="user_id", type="integer"),
+     *         @OA\Property(property="user_id", type="string"),
      *         @OA\Property(property="role_id", type="integer"),
      *      )
      *   ),

@@ -20,7 +20,7 @@ class UserService implements IUserService
         $this->userRoleService = $userRoleService;
     }
 
-    public function registerUser(string $msisdn, string $name, string $password){
+    public function registerUser(string $msisdn, string $name, string $password, string $access_level = 'free'){
         $validator = Validator::make(
             ['msisdn' => $msisdn],
             [
@@ -32,7 +32,7 @@ class UserService implements IUserService
             throw new \InvalidArgumentException($validator->errors()->first());
         }
 
-        $user = $this->userRepository->createNewUser($msisdn, $name, $password);
+        $user = $this->userRepository->createNewUser($msisdn, $name, $password, $access_level);
         $this->userRoleService->createUserRole($user->id, 3, $user->id);
 
         if (!$token = auth()->attempt(['msisdn' => $msisdn, 'password' => $password])){
