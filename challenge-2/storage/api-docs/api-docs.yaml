@@ -1,0 +1,110 @@
+openapi: 3.0.0
+info:
+  title: 'Challenge 2'
+  version: 0.0.1
+servers:
+  -
+    url: 'http://localhost:8100/api'
+paths:
+  /api/auth/register:
+    post:
+      tags:
+        - Auth
+      summary: 'Registro de novos usuarios'
+      operationId: registerUser
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              properties:
+                msisdn:
+                  type: string
+                name:
+                  type: string
+                password:
+                  type: string
+              type: object
+      responses:
+        200:
+          description: 'successful operation'
+  /api/auth/login:
+    post:
+      tags:
+        - Auth
+      summary: 'Login usuarios'
+      operationId: loginUser
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              properties:
+                msisdn:
+                  type: string
+                password:
+                  type: string
+              type: object
+      responses:
+        200:
+          description: 'successful operation'
+  /api/admin/user-role/add:
+    post:
+      tags:
+        - Admin
+      summary: 'Add User Role'
+      operationId: addUserRole
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              properties:
+                user_id:
+                  type: integer
+                role_id:
+                  type: integer
+              type: object
+      responses:
+        200:
+          description: 'successful operation'
+      security:
+        -
+          BearerAuth: []
+  /api/admin/user-role/remove:
+    delete:
+      tags:
+        - Admin
+      summary: 'Remove User Role'
+      operationId: removeUserRole
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              properties:
+                user_id:
+                  type: integer
+                role_id:
+                  type: integer
+              type: object
+      responses:
+        200:
+          description: 'successful operation'
+      security:
+        -
+          BearerAuth: []
+  /api/admin/user-role/list:
+    get:
+      tags:
+        - Admin
+      summary: 'Get users Roles'
+      operationId: getUsersRoles
+      responses:
+        200:
+          description: 'successful operation'
+      security:
+        -
+          BearerAuth: []
+security:
+  - []
