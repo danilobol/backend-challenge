@@ -20,10 +20,8 @@ class CreateUsersTable extends Migration
 
             $table->uuid('id')->primary();
             $table->string('name');
-            $table->string('email')->unique();
             $table->string('msisdn')->unique();
             $table->enum('access_level', ['free', 'pro', 'premium'])->default('free');
-            $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
