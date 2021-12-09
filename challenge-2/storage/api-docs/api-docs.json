@@ -1,7 +1,11 @@
 {
     "openapi": "3.0.0",
     "info": {
-        "title": "Challenge 2",
+        "title": "Challenge-Backend",
+        "contact": {
+            "name": "Danilo Brito",
+            "email": "danilo.britoxd@hotmail.com"
+        },
         "version": "0.0.1"
     },
     "servers": [
@@ -401,6 +405,14 @@
                         "BearerAuth": []
                     }
                 ]
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "BearerAuth": {
+                "type": "http",
+                "scheme": "bearer"
             }
         }
     },

@@ -5,21 +5,16 @@ return [
     'documentations' => [
         'default' => [
             'api' => [
-                'title' => 'Challenge 2',
+                'title' => 'Challenge - Backend',
             ],
 
             'routes' => [
                 /*
                  * Route for accessing api documentation interface
                 */
-                'api' => 'api/doc',
+                'api' => '/',
             ],
             'paths' => [
-                /*
-                 * Edit to include full URL in ui for assets
-                */
-                'use_absolute_path' => env('L5_SWAGGER_USE_ABSOLUTE_PATH', true),
-
                 /*
                  * File name of the generated json documentation file
                 */
@@ -105,14 +100,12 @@ return [
         'scanOptions' => [
             /**
              * analyser: defaults to \OpenApi\StaticAnalyser .
-             *
              * @see \OpenApi\scan
              */
             'analyser' => null,
 
             /**
              * analysis: defaults to a new \OpenApi\Analysis .
-             *
              * @see \OpenApi\scan
              */
             'analysis' => null,
@@ -129,7 +122,6 @@ return [
 
             /**
              * pattern: string       $pattern File pattern(s) to scan (default: *.php) .
-             *
              * @see \OpenApi\scan
              */
             'pattern' => null,
@@ -147,6 +139,10 @@ return [
         */
         'securityDefinitions' => [
             'securitySchemes' => [
+                'BearerAuth' => [
+                    'type' => 'http',
+                    'scheme' => 'bearer'
+                ]
                 /*
                  * Examples of Security schemes
                 */

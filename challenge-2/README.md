@@ -1,28 +1,31 @@
-# backend-challenge
+# Backend-challenge 2 Danilo Brito
 
-### 1. Rename .env.example to .env
+## Getting Started
 
-### 2. Run Docker
-
-#### Start the docker enviroment
+#### Repository clone and configuration
+    1 - git clone git@github.com:danilobol/Merchant-backend.git
+    2 - Rename .env.example to .env
+    3 - Start the docker enviroment:
 ```
-docker-compose up -d
+---------------------------------------
+        docker-compose up -d
+---------------------------------------
 ```
 
 #### Setup Laravel project
 
 ```
-docker exec app composer install
-docker exec app php artisan key:generate
-docker exec app php artisan optimize
-docker exec app php artisan migrate
+---------------------------------------
+
+        docker exec app-mlearn composer install
+        docker exec app-mlearn php artisan key:generate
+        docker exec app-mlearn php artisan optimize
+        docker exec app-mlearn php artisan migrate
+        docker exec app-mlearn php artisan db:seed
+
+---------------------------------------
 
 ```
-#### Enter the Container
-```
-docker exec -it CONTAINER_ID bash 
-```
-
 #### Use
 
 The API will be available at `localhost:8100` and the database at `localhost:33062`
@@ -32,5 +35,10 @@ The API will be available at `localhost:8100` and the database at `localhost:330
 Documentation is available at:
 
 ```
-    localhost:8100/api/doc
+    localhost:8100/
 ```
+
+#### Detalhes
+
+    - php 8.0
+    - laravel 8

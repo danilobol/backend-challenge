@@ -1,42 +1,21 @@
 # Desafio back-end da mLearn
 
-Esse repositório é o nosso desafio para avaliar o quão bom desenvolvedor back-end você é.
-
-Provavelmente você já está participando do nosso processo seletivo, mas se você caiu aqui por acaso, leia o documento até o final e caso haja interesse, você pode começar daqui mesmo.
+Esse repositório encontra-se duas soluções para os [`DESAFIOS`](/CHALLENGE.md) 1 e 2 mLearn. O desafio 1 foi realizado em C e o desafio 2 foi realizado em php utilizando o fraemework laravel.
 
 
 ## Sobre o desafio
 
-Esse é um desafio, não um teste ou uma prova de faculdade, portanto não há uma única resposta certa.
+### Desafio 1
 
-Daremos a você alguns requisitos que devem ser cumpridos, e pelos quais você será avaliado, mas deixamos livre a escolha do método de solução.
+Escolhi a linguagem C, essa foi a minha primeira linguagem, foi a que aprendi a lógica de programação. Tinha um bom tempo que não programava nada em C. Escolhi essa linguagem, pois é simples e não precisa necessariamente instalar um amabiente para uso.
 
-O que nós esperamos aprender sobre você com o desafio:
 
-- Seu estilo de trabalho
-- Como você pensa e resolve problemas
-- Como você se comunica
+### Desafio 2
 
-O que nós esperamos que você aprenda sobre a mLearn:
+Escoli realizar esse desafio em php, utilizando o framework Laravel. Tive outras demandas então acabei não criando o formulario de criação e nem a listagem.
+Fiz todas integrações com a API do mLearn, porém não pude testá-las, pois a API estava indisponível. Todas as rotas foram documentadas no swager e são de facil utilização. Apesar de não concluir o desafio como eu esperava, acho que é possivel ter uma noção da minha forma de programar.
 
-- Como nós trabalhamos como um time.
-- Tenha uma visão próxima dos desafios que enfrentamos no dia-a-dia.
 
-## Próximos passos
+### Instruções do desafio
 
-1. Faça um _fork_ desse repositório para sua conta pessoal.
-2. As instruções do desafio se encontram no arquivo [`CHALLENGE.md`](/CHALLENGE.md).
-2. Resolva o desafio da forma que você julgar mais adequada.
-3. Utilize uma _branch_ nomeada com o formato (`nome-sobrenome`) para o desenvolvimento. E submeta o _pull-request_ para essa mesma _branch_.
-
-## Considerações
-
-- Nós não iremos limitar a sua escolha por ferramentas e bibliotecas. Porém faça escolhas que sejam condizentes com o desafio apresentado. Para que utilizar uma bazuca para matar uma formiga?
-- O tempo sugerido para execução do teste é  de **2 horas e meia**.
-- Tente escrever o melhor código possível para que possamos avaliar o seu _pull-request_ com mais facilidade. E lembre-se: Você vai ter que explicar pessoalmente para nós depois.
-
-## Dúvidas?
-
-Ficou com alguma dúvida sobre como irá funcionar o processo? Entre em contato que nós te ajudaremos com o processo.
-
-**Boa sorte!**
+As instruções do desafio se encontram no arquivo [`CHALLENGE.md`](/CHALLENGE.md).

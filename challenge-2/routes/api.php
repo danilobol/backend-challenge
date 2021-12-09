@@ -24,11 +24,12 @@ Route::group([
     'prefix' => 'group'
 
 ], function ($router) {
-    Route::post('/create', [GroupController::class,'store']);
+    Route::post('/create', [GroupController::class,'store'])->middleware('api.jwt');
     Route::get('/show', [GroupController::class,'show']);
-    Route::get('/my-group-show', [GroupController::class,'showOwnerGroup']);
+    Route::get('/my-group-show', [GroupController::class,'showOwnerGroup'])->middleware('api.jwt');
 
     Route::group([
+        'middleware' => 'api.jwt',
         'prefix' => 'user'
     ], function ($router) {
         Route::post('/add', [UserGroupController::class, 'store']);
