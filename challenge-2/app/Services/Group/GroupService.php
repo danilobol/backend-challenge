@@ -6,6 +6,7 @@ namespace App\Services\Group;
 use App\Models\Group;
 use App\Repositories\Contracts\IGroupRepository;
 use App\Services\Contracts\IGroupService;
+use App\Services\Contracts\ImLearnService;
 
 /**
  * Class UserRepository.
@@ -13,13 +14,21 @@ use App\Services\Contracts\IGroupService;
 class GroupService implements IGroupService
 {
     protected $groupRepository;
-    public function __construct(IGroupRepository $groupRepository)
+    protected $mLearnService;
+
+    public function __construct(
+        IGroupRepository $groupRepository,
+        ImLearnService $mLearnService
+    )
     {
         $this->groupRepository = $groupRepository;
+        $this->mLearnService = $mLearnService;
     }
 
     public function createUserGroup(string $userId, string $groupTitle, ?string $description){
-        return $this->groupRepository->createUserGroup($userId, $groupTitle, $description);
+        $group = $this->groupRepository->createUserGroup($userId, $groupTitle, $description);
+        $this->mLearnService->addUserToGroupWithMLearn($userId, $group->id, $groupTitle);
+        return $group;
     }
 
     public function getGroup(string $groupId){

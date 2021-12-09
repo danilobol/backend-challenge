@@ -16,7 +16,7 @@ class GroupController extends Controller
 
     /**
      * @OA\Post(
-     *     path="/api/group/create",
+     *     path="/group/create",
      *     tags={"Group"},
      *     summary="Criar novos grupos",
      *     operationId="createGroup",
@@ -60,7 +60,7 @@ class GroupController extends Controller
 
     /**
      * @OA\Get(
-     *     path="/api/group/show",
+     *     path="/group/show",
      *     tags={"Group"},
      *     summary="Listar grupos pelo id!",
      *     operationId="showGroup",
@@ -91,7 +91,7 @@ class GroupController extends Controller
 
     /**
      * @OA\Get(
-     *     path="/api/group/show-my-group",
+     *     path="/group/my-group-show",
      *     tags={"Group"},
      *     summary="Lista de grupos que o usuário é proprietário",
      *     operationId="getOwnerGroup",

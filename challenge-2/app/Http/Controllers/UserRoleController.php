@@ -17,7 +17,7 @@ class UserRoleController extends Controller
 
     /**
      * @OA\Post(
-     *   path="/api/admin/user-role/add",
+     *   path="/admin/user-role/add",
      *   tags={"Admin"},
      *   summary="Add User Role",
      *   operationId="addUserRole",
@@ -56,7 +56,7 @@ class UserRoleController extends Controller
 
     /**
      * @OA\Delete(
-     *   path="/api/admin/user-role/remove",
+     *   path="/admin/user-role/remove",
      *   tags={"Admin"},
      *   summary="Remove User Role",
      *   operationId="removeUserRole",
@@ -94,7 +94,7 @@ class UserRoleController extends Controller
 
     /**
      * @OA\Get(
-     *   path="/api/admin/user-role/list",
+     *   path="/admin/user-role/list",
      *   tags={"Admin"},
      *   summary="Get users Roles",
      *   operationId="getUsersRoles",
