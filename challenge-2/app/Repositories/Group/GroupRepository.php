@@ -22,4 +22,9 @@ class GroupRepository implements IGroupRepository
     public function getGroup(int $groupId){
         return Group::query()->where('id','=', $groupId)->first();
     }
+
+    public function getOwnerUserGroups(string $userId): \Illuminate\Database\Eloquent\Collection|array
+    {
+        return Group::query()->where('owner_id', '=', $userId)->get();
+    }
 }
