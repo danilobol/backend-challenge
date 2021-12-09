@@ -6,7 +6,58 @@ servers:
   -
     url: 'http://localhost:8100/api'
 paths:
-  /api/auth/register:
+  /group/create:
+    post:
+      tags:
+        - Group
+      summary: 'Criar novos grupos'
+      operationId: createGroup
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              properties:
+                title:
+                  type: string
+                description:
+                  type: string
+              type: object
+      responses:
+        200:
+          description: 'successful operation'
+      security:
+        -
+          BearerAuth: []
+  /group/show:
+    get:
+      tags:
+        - Group
+      summary: 'Listar grupos pelo id!'
+      operationId: showGroup
+      parameters:
+        -
+          name: groupId
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        200:
+          description: 'successful operation'
+  /group/my-group-show:
+    get:
+      tags:
+        - Group
+      summary: 'Lista de grupos que o usuário é proprietário'
+      operationId: getOwnerGroup
+      responses:
+        200:
+          description: 'successful operation'
+      security:
+        -
+          BearerAuth: []
+  /auth/register:
     post:
       tags:
         - Auth
@@ -28,7 +79,7 @@ paths:
       responses:
         200:
           description: 'successful operation'
-  /api/auth/login:
+  /auth/login:
     post:
       tags:
         - Auth
@@ -48,7 +99,61 @@ paths:
       responses:
         200:
           description: 'successful operation'
-  /api/admin/user-role/add:
+  /group/user/add:
+    post:
+      tags:
+        - Group
+      summary: 'Add user to grupos'
+      operationId: addUserToGroup
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              properties:
+                groupId:
+                  type: string
+              type: object
+      responses:
+        200:
+          description: 'successful operation'
+      security:
+        -
+          BearerAuth: []
+  /group/user/delete:
+    delete:
+      tags:
+        - Group
+      summary: 'remove user of grupos'
+      operationId: removeUserOfGroup
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              properties:
+                groupId:
+                  type: string
+              type: object
+      responses:
+        200:
+          description: 'successful operation'
+      security:
+        -
+          BearerAuth: []
+  /group/user/show:
+    get:
+      tags:
+        - Group
+      summary: 'show user grupos'
+      operationId: showUserGroup
+      responses:
+        200:
+          description: 'successful operation'
+      security:
+        -
+          BearerAuth: []
+  /admin/user-role/add:
     post:
       tags:
         - Admin
@@ -61,7 +166,7 @@ paths:
             schema:
               properties:
                 user_id:
-                  type: integer
+                  type: string
                 role_id:
                   type: integer
               type: object
@@ -71,7 +176,7 @@ paths:
       security:
         -
           BearerAuth: []
-  /api/admin/user-role/remove:
+  /admin/user-role/remove:
     delete:
       tags:
         - Admin
@@ -84,7 +189,7 @@ paths:
             schema:
               properties:
                 user_id:
-                  type: integer
+                  type: string
                 role_id:
                   type: integer
               type: object
@@ -94,12 +199,56 @@ paths:
       security:
         -
           BearerAuth: []
-  /api/admin/user-role/list:
+  /admin/user-role/list:
     get:
       tags:
         - Admin
       summary: 'Get users Roles'
       operationId: getUsersRoles
+      responses:
+        200:
+          description: 'successful operation'
+      security:
+        -
+          BearerAuth: []
+  /m-learn/user:
+    get:
+      tags:
+        - m-Learn
+      summary: 'show user grupos'
+      operationId: showUserGroup
+      parameters:
+        -
+          name: msisdn
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: userId
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        200:
+          description: 'successful operation'
+      security:
+        -
+          BearerAuth: []
+  /m-learn/group-user:
+    get:
+      tags:
+        - m-Learn
+      summary: 'show user grupos'
+      operationId: showUserGroup
+      parameters:
+        -
+          name: userId
+          in: query
+          required: false
+          schema:
+            type: string
       responses:
         200:
           description: 'successful operation'
