@@ -4,6 +4,7 @@ namespace App\Services\User;
 
 
 use App\Repositories\Contracts\IUserRepository;
+use App\Services\Contracts\ImLearnService;
 use App\Services\Contracts\IUserRoleService;
 use App\Services\Contracts\IUserService;
 use Illuminate\Support\Facades\Auth;
@@ -13,11 +14,17 @@ class UserService implements IUserService
 {
     protected $userRepository;
     protected $userRoleService;
+    protected $mLearnService;
 
-    public function __construct(IUserRepository $userRepository, IUserRoleService $userRoleService)
+    public function __construct(
+        IUserRepository $userRepository,
+        IUserRoleService $userRoleService,
+        ImLearnService $mLearnService
+    )
     {
         $this->userRepository = $userRepository;
         $this->userRoleService = $userRoleService;
+        $this->mLearnService = $mLearnService;
     }
 
     public function registerUser(string $msisdn, string $name, string $password, string $access_level = 'free'){
@@ -32,8 +39,9 @@ class UserService implements IUserService
             throw new \InvalidArgumentException($validator->errors()->first());
         }
 
+        $this->mLearnService->registerUserWithMLearn($msisdn, $name, $password, $access_level);
         $user = $this->userRepository->createNewUser($msisdn, $name, $password, $access_level);
-        $this->userRoleService->createUserRole($user->id, 3, $user->id);
+        $this->userRoleService->createUserRole($user->id, 2, $user->id);
 
         if (!$token = auth()->attempt(['msisdn' => $msisdn, 'password' => $password])){
             throw new \InvalidArgumentException('Unauthorized user, invalid data!');
@@ -72,4 +80,6 @@ class UserService implements IUserService
     public function findUser(int $id){
         return $this->userRepository->findUser($id);
     }
+
+
 }
