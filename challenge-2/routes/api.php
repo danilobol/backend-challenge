@@ -45,7 +45,7 @@ Route::group([
 
 ], function ($router) {
     Route::post('/register', [UserController::class,'store']);
-    Route::post('/login', [UserController::class, 'login']);
+    Route::post('/login', [UserController::class, 'login'])->name('login.auth');
 });
 
 Route::group([
@@ -67,6 +67,6 @@ Route::group([
     'prefix' => 'm-learn'
 
 ], function ($router) {
-    Route::post('/user', [mLearnController::class,'findUser']);
-    Route::post('/group-user', [mLearnController::class, 'getUserGroups']);
+    Route::get('/user', [mLearnController::class,'findUser']);
+    Route::get('/group-user', [mLearnController::class, 'getUserGroups']);
 });
