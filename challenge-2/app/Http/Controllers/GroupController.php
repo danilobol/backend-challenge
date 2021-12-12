@@ -41,11 +41,11 @@ class GroupController extends Controller
     {
         try {
             $data = (object)$request->only([
-                'userInfo'
+                'userData'
             ]);
             $title = $request->get('title') ?: null;
             $description = $request->get('description') ?: null;
-            $user = (object)$data->userInfo;
+            $user = (object)$data->userData->userInfo;
             return response()->json($this->groupService->createUserGroup($user->id, $title, $description));
         }catch (\Exception $e)
         {
@@ -110,9 +110,9 @@ class GroupController extends Controller
     {
         try {
             $data = (object)$request->only([
-                'userInfo'
+                'userData'
             ]);
-            $user = (object)$data->userInfo;
+            $user = (object)$data->userData->userInfo;
             return response()->json($this->groupService->getOwnerUserGroups($user->id));
         }catch (\Exception $e)
         {

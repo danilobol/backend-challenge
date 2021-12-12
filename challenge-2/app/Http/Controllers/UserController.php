@@ -100,4 +100,15 @@ class UserController extends Controller
         }
 
     }
+
+    public function loginForm(){
+        if(key_exists('msisdn',session()->all())){
+
+            return redirect()->route('dashboard');
+
+        }else{
+
+            return view('auth.login');
+        }
+    }
 }

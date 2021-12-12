@@ -41,10 +41,10 @@ class UserGroupController extends Controller
     {
         try {
             $data = (object)$request->only([
-                'userInfo'
+                'userData'
             ]);
             $groupId = $request->get('groupId') ?: null;
-            $user = (object)$data->userInfo;
+            $user = (object)$data->userData->userInfo;
             return response()->json($this->userGroupService->addUserToGroup($user->id, $groupId));
         }catch (\Exception $e)
         {
@@ -83,10 +83,10 @@ class UserGroupController extends Controller
     {
         try {
             $data = (object)$request->only([
-                'userInfo'
+                'userData'
             ]);
             $groupId = $request->get('groupId') ?: null;
-            $user = (object)$data->userInfo;
+            $user = (object)$data->userData->userInfo;
             $this->userGroupService->removeUserToGroup($user->id, $groupId);
             return response()->json([
                 'status' => 'success',
@@ -122,9 +122,9 @@ class UserGroupController extends Controller
     {
         try {
             $data = (object)$request->only([
-                'userInfo'
+                'userData'
             ]);
-            $user = (object)$data->userInfo;
+            $user = (object)$data->userData->userInfo;
             return response()->json($this->userGroupService->getGroupsOfUser($user->id));
         }catch (\Exception $e)
         {
