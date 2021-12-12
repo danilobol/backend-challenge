@@ -27,7 +27,7 @@ class UserService implements IUserService
         $this->mLearnService = $mLearnService;
     }
 
-    public function registerUser(string $msisdn, string $name, string $password, string $access_level = 'free'){
+    public function registerUser(string $msisdn, string $name, string $password, string $access_level = 'pro'){
         $validator = Validator::make(
             ['msisdn' => $msisdn],
             [
@@ -39,8 +39,8 @@ class UserService implements IUserService
             throw new \InvalidArgumentException($validator->errors()->first());
         }
 
-        $this->mLearnService->registerUserWithMLearn($msisdn, $name, $password, $access_level);
         $user = $this->userRepository->createNewUser($msisdn, $name, $password, $access_level);
+        $this->mLearnService->registerUserWithMLearn($user->id, $msisdn, $name, $password, $access_level);
         $this->userRoleService->createUserRole($user->id, 2, $user->id);
 
         if (!$token = auth()->attempt(['msisdn' => $msisdn, 'password' => $password])){
