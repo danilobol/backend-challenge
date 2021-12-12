@@ -19,7 +19,7 @@ class GroupRepository implements IGroupRepository
         ]);
     }
 
-    public function getGroup(int $groupId){
+    public function getGroup(string $groupId){
         return Group::query()->where('id','=', $groupId)->first();
     }
 
