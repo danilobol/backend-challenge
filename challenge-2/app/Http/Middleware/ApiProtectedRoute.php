@@ -22,7 +22,7 @@ class ApiProtectedRoute
             $userInfo = $user->get('user');
             $userPermissions = $user->get('permissions');
             $userRoles = $user->get('roles');
-            $userData = ['roles' => $userRoles, 'permissions' => $userPermissions, 'userInfo' => $userInfo];
+            $userData = (object)['roles' => $userRoles, 'permissions' => $userPermissions, 'userInfo' => $userInfo];
 
             $request->merge(['userData' => $userData]);
 
