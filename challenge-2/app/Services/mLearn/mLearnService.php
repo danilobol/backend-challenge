@@ -10,6 +10,7 @@ use GuzzleHttp\RequestOptions;
 class mLearnService implements ImLearnService
 {
     private $serviceId = 'qualifica';
+    private $appUsersGroupId = 20;
     protected $clientUrl;
     protected $clientToken;
 
@@ -20,11 +21,25 @@ class mLearnService implements ImLearnService
 
     }
 
-    public function registerUserWithMLearn(string $msisdn, string $name, string $password, string $access_level = 'free'){
+    public function registerUserWithMLearn(
+        string $userId,
+        string $msisdn,
+        string $name,
+        string $password,
+        string $access_level = 'pro'
+    ){
         $response = $this->clientUrl->post('/integrator/'.$this->serviceId.'/users', [
             'headers' => [
                 'Authorization' => 'Bearer ' . $this->clientToken,
+                'service-id' => $this->serviceId,
+                'app-users-group-id' => $this->appUsersGroupId,
                 'Content-Type' => 'application/json',
+            ],
+            'json' => [
+                'msisdn'            => $msisdn,
+                'name'              => $name,
+                'access_level'      => $access_level,
+                'password'          => $password,
             ]
         ]);
 
@@ -35,12 +50,14 @@ class mLearnService implements ImLearnService
         $response = $this->clientUrl->get('/integrator/'.$this->serviceId.'/users', [
             'headers' => [
                 'Authorization' => 'Bearer ' . $this->clientToken,
-                'form_params' => [
-                    'external_id'       => $userId,
-                    'msisdn'            => $msisdn,
-                ],
+                'service-id' => $this->serviceId,
+                'app-users-group-id' => $this->appUsersGroupId,
                 'Content-Type' => 'application/json',
-            ]
+            ],
+            'query' => [
+                'external_id'       => $userId,
+                'msisdn'            => $msisdn,
+            ],
         ]);
 
         return json_decode($response->getBody()->getContents());
@@ -50,13 +67,15 @@ class mLearnService implements ImLearnService
         $response = $this->clientUrl->put('/integrator/'.$this->serviceId.'/users/'.$userId, [
             'headers' => [
                 'Authorization' => 'Bearer ' . $this->clientToken,
-                'body' => [
-                    'msisdn'            => $msisdn,
-                    'name'              => $name,
-                    'access_level'      => $access_level,
-                    'password'          => $password,
-                ],
+                'service-id' => $this->serviceId,
+                'app-users-group-id' => $this->appUsersGroupId,
                 'Content-Type' => 'application/json',
+            ],
+            'json' => [
+                'msisdn'            => $msisdn,
+                'name'              => $name,
+                'access_level'      => $access_level,
+                'password'          => $password,
             ]
         ]);
 
@@ -67,6 +86,8 @@ class mLearnService implements ImLearnService
         $response = $this->clientUrl->put('/integrator/'.$this->serviceId.'/users/'.$userId.'/upgrade', [
             'headers' => [
                 'Authorization' => 'Bearer ' . $this->clientToken,
+                'service-id' => $this->serviceId,
+                'app-users-group-id' => $this->appUsersGroupId,
                 'Content-Type' => 'application/json',
             ]
         ]);
@@ -78,6 +99,8 @@ class mLearnService implements ImLearnService
         $response = $this->clientUrl->put('/integrator/'.$this->serviceId.'/users/'.$userId.'/downgrade', [
             'headers' => [
                 'Authorization' => 'Bearer ' . $this->clientToken,
+                'service-id' => $this->serviceId,
+                'app-users-group-id' => $this->appUsersGroupId,
                 'Content-Type' => 'application/json',
             ]
         ]);
@@ -89,6 +112,8 @@ class mLearnService implements ImLearnService
         $response = $this->clientUrl->delete('/integrator/'.$this->serviceId.'/users/'.$userId, [
             'headers' => [
                 'Authorization' => 'Bearer ' . $this->clientToken,
+                'service-id' => $this->serviceId,
+                'app-users-group-id' => $this->appUsersGroupId,
                 'Content-Type' => 'application/json',
             ]
         ]);
@@ -100,12 +125,14 @@ class mLearnService implements ImLearnService
         $response = $this->clientUrl->post('/users/'.$userId.'/groups', [
             'headers' => [
                 'Authorization' => 'Bearer ' . $this->clientToken,
-                'body' => [
-                    'group_id'              => $groupId,
-                    'title'                 => $groupTitle
-                ],
+                'service-id' => $this->serviceId,
+                'app-users-group-id' => $this->appUsersGroupId,
                 'Content-Type' => 'application/json',
-            ]
+            ],
+            'json' => [
+                'group_id'              => $groupId,
+                'title'                 => $groupTitle
+            ],
         ]);
 
         return json_decode($response->getBody()->getContents());
@@ -115,6 +142,8 @@ class mLearnService implements ImLearnService
         $response = $this->clientUrl->get('/users/'.$userId.'/groups', [
             'headers' => [
                 'Authorization' => 'Bearer ' . $this->clientToken,
+                'service-id' => $this->serviceId,
+                'app-users-group-id' => $this->appUsersGroupId,
                 'Content-Type' => 'application/json',
             ]
         ]);
@@ -126,6 +155,8 @@ class mLearnService implements ImLearnService
         $response = $this->clientUrl->delete('/users/'.$userId.'/groups/'.$groupId, [
             'headers' => [
                 'Authorization' => 'Bearer ' . $this->clientToken,
+                'service-id' => $this->serviceId,
+                'app-users-group-id' => $this->appUsersGroupId,
                 'Content-Type' => 'application/json',
             ]
         ]);
