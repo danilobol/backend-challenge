@@ -102,6 +102,68 @@ paths:
       responses:
         200:
           description: 'successful operation'
+  /user/upgrade:
+    put:
+      tags:
+        - User
+      summary: 'Upgrade user'
+      operationId: upgradeUser
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              properties:
+                userId:
+                  type: string
+              type: object
+      responses:
+        200:
+          description: 'successful operation'
+  /user/downgrade:
+    put:
+      tags:
+        - User
+      summary: 'downgrade user'
+      operationId: downgradeUser
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              properties:
+                userId:
+                  type: string
+              type: object
+      responses:
+        200:
+          description: 'successful operation'
+  /user/showAll:
+    get:
+      tags:
+        - User
+      summary: 'show all user'
+      operationId: showAllUser
+      responses:
+        200:
+          description: 'successful operation'
+  '/user/show/{id}':
+    get:
+      tags:
+        - User
+      summary: 'show user by id'
+      operationId: showUserById
+      parameters:
+        -
+          name: id
+          in: path
+          description: 'User id'
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: 'successful operation'
   /group/user/add:
     post:
       tags:
