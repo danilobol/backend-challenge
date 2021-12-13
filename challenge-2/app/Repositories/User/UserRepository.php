@@ -19,7 +19,19 @@ class UserRepository implements IUserRepository
             'password'  => bcrypt($password)
         ]);
     }
-    public function findUser(int $id){
+    public function findUser(string $id){
         return User::find($id);
+    }
+
+    public function showAllUsers(){
+        return User::all();
+    }
+
+    public function updateAccessLevelUser(string $userId, string $access_level){
+        $user = $this->findUser($userId);
+        $user?->update([
+            'access_level' => $access_level
+        ]);
+        return $user;
     }
 }

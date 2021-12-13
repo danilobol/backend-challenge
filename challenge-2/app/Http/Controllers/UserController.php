@@ -16,11 +16,11 @@ class UserController extends Controller
     }
 
     /**
-     * @OA\Post(
-     *     path="/auth/register",
-     *     tags={"Auth"},
-     *     summary="Registro de novos usuarios",
-     *     operationId="registerUser",
+     * @OA\Put(
+     *     path="/user/upgrade",
+     *     tags={"User"},
+     *     summary="Upgrade user",
+     *     operationId="upgradeUser",
      *     @OA\Response(
      *         response=200,
      *         description="successful operation",
@@ -29,25 +29,19 @@ class UserController extends Controller
      *         required=true,
      *         @OA\JsonContent(
      *         type="object",
-     *          @OA\Property(property="msisdn", type="string"),
-     *          @OA\Property(property="name", type="string"),
-     *          @OA\Property(property="password", type="string"),
+     *          @OA\Property(property="userId", type="string"),
      *          )
      *     )
      * )
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function store(Request $request): \Illuminate\Http\JsonResponse
+    public function upgrade(Request $request): \Illuminate\Http\JsonResponse
     {
         try {
-            $user = (object)$request->only([
-                'msisdn',
-                'name',
-                'password'
-            ]);
+            $userId = $request->get('userId') ?: null;
 
-            return response()->json($this->userService->registerUser($user->msisdn, $user->name, $user->password));
+            return response()->json($this->userService->upgradeUser($userId));
         }catch (\Exception $e)
         {
             return response()->json([
@@ -60,11 +54,11 @@ class UserController extends Controller
     }
 
     /**
-     * @OA\Post(
-     *     path="/auth/login",
-     *     tags={"Auth"},
-     *     summary="Login usuarios",
-     *     operationId="loginUser",
+     * @OA\Put(
+     *     path="/user/downgrade",
+     *     tags={"User"},
+     *     summary="downgrade user",
+     *     operationId="downgradeUser",
      *     @OA\Response(
      *         response=200,
      *         description="successful operation",
@@ -73,42 +67,98 @@ class UserController extends Controller
      *         required=true,
      *         @OA\JsonContent(
      *         type="object",
-     *          @OA\Property(property="msisdn", type="string"),
-     *          @OA\Property(property="password", type="string"),
+     *          @OA\Property(property="userId", type="string"),
      *          )
      *     )
      * )
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function login(Request $request): \Illuminate\Http\JsonResponse
+    public function downgrade(Request $request): \Illuminate\Http\JsonResponse
     {
         try {
-            $user = (object)$request->only([
-                'msisdn',
-                'password'
-            ]);
+            $userId = $request->get('userId') ?: null;
 
-            return response()->json($this->userService->loginUser($user->msisdn, $user->password));
+            return response()->json($this->userService->downgradeUser($userId));
         }catch (\Exception $e)
         {
             return response()->json([
-                'message' => ServerErrors::getError(ServerErrors::ERROR_1002),
-                'code' => ServerErrors::ERROR_1002,
+                'message' => ServerErrors::getError(ServerErrors::ERROR_1001),
+                'code' => ServerErrors::ERROR_1001,
                 'error' => $e->getMessage()
             ], 403);
         }
 
     }
 
-    public function loginForm(){
-        if(key_exists('msisdn',session()->all())){
 
-            return redirect()->route('dashboard');
-
-        }else{
-
-            return view('auth.login');
+    /**
+     * @OA\Get (
+     *     path="/user/showAll",
+     *     tags={"User"},
+     *     summary="show all user",
+     *     operationId="showAllUser",
+     *     @OA\Response(
+     *         response=200,
+     *         description="successful operation",
+     *     ),
+     *
+     * )
+     * @param int $string
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function index(): \Illuminate\Http\JsonResponse
+    {
+        try {
+            return response()->json($this->userService->showAllUsers());
+        }catch (\Exception $e)
+        {
+            return response()->json([
+                'message' => ServerErrors::getError(ServerErrors::ERROR_1001),
+                'code' => ServerErrors::ERROR_1001,
+                'error' => $e->getMessage()
+            ], 403);
         }
+
     }
+
+    /**
+     * @OA\Get (
+     *     path="/user/show/{id}",
+     *     tags={"User"},
+     *     summary="show user by id",
+     *     operationId="showUserById",
+     *     @OA\Parameter(
+     *          name="id",
+     *          description="User id",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="string"
+     *          )
+     *      ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="successful operation",
+     *     ),
+     *
+     * )
+     * @param int $string
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function show(string $id): \Illuminate\Http\JsonResponse
+    {
+        try {
+            return response()->json($this->userService->findUser($id));
+        }catch (\Exception $e)
+        {
+            return response()->json([
+                'message' => ServerErrors::getError(ServerErrors::ERROR_1001),
+                'code' => ServerErrors::ERROR_1001,
+                'error' => $e->getMessage()
+            ], 403);
+        }
+
+    }
+
 }
