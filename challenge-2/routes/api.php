@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\mLearnController;
+use App\Http\Controllers\UserAuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserGroupController;
 use App\Http\Controllers\UserRoleController;
@@ -44,8 +45,19 @@ Route::group([
     'prefix' => 'auth'
 
 ], function ($router) {
-    Route::post('/register', [UserController::class,'store']);
-    Route::post('/login', [UserController::class, 'login'])->name('login.auth');
+    Route::post('/register', [UserAuthController::class,'store']);
+    Route::post('/login', [UserAuthController::class, 'login'])->name('login.auth');
+});
+
+Route::group([
+    'middleware' => 'api',
+    'prefix' => 'user'
+
+], function ($router) {
+    Route::get('/showAll', [UserController::class,'index']);
+    Route::get('/show/{id}', [UserController::class, 'show']);
+    Route::put('/upgrade', [UserController::class, 'upgrade']);
+    Route::put('/downgrade', [UserController::class, 'downgrade']);
 });
 
 Route::group([
