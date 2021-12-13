@@ -77,8 +77,22 @@ class UserService implements IUserService
         ]);
     }
 
-    public function findUser(int $id){
+    public function findUser(string $id){
         return $this->userRepository->findUser($id);
+    }
+
+    public function showAllUsers(){
+        return $this->userRepository->showAllUsers();
+    }
+
+    public function upgradeUser(string $userId){
+        $userMLearn = $this->mLearnService->updateAccessLevelUserWithMLearn($userId);
+        return  $this->userRepository->updateAccessLevelUser($userId, $userMLearn->data["access_level"]);
+    }
+
+    public function downgradeUser(string $userId){
+        $userMLearn = $this->mLearnService->downgradeAccessLevelUserWithMLearn($userId);
+        return  $this->userRepository->updateAccessLevelUser($userId, $userMLearn->data["access_level"]);
     }
 
 
